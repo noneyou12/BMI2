@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BMI Phase II</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body style="background-color: #efcfd4">
+    <div class="middle box container">
+      <form action="">
+        <div class="d-flex">
+          <div class="col">
+            <h1>BMI Calculator</h1>
+          </div>
+          <div class="col">
+            <input id="reset-btn" type="reset" value="Reset" />
+          </div>
+        </div>
+        <div>
+          <label for="Age">Age :</label>
+          <input id="age" type="text" placeholder="Enter ur Age" />
+          <small></small>
+          <br /><br />
+        </div>
+        <div>
+          <label for="Height" class="form-label">Height :</label>
+          <input id="height" type="text" placeholder="Enter ur Height(Cm)" />
+          <small></small>
+          <br /><br />
+        </div>
+        <div>
+          <label for="Weight">Weight :</label>
+          <input id="weight" type="text" placeholder="Enter ur Weight(Kg)" />
+          <small></small>
+          <br /><br />
+        </div>
+        <div style="margin-left: 60px">
+          <label for="Gender"></label>
+          <input type="radio" name="gender" value="male" checked />Male
+          <input type="radio" name="gender" value="female" />Female <br /><br />
+        </div>
+        <div>
+          <button id="btn">Calculate BMI</button>
+          <p id="result-bmi">BMI :</p>
+          <p id="result">result :</p>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script src="./JS/script.js"></script>
+</html>

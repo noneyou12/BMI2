@@ -1,0 +1,169 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.d-flex .col {
+  display: flex;
+  align-items: center;
+}
+.d-flex .col:first-child {
+  flex: 1 1 auto;
+}
+.d-flex .col:last-child {
+  flex: 0 0 auto;
+}
+input[type="reset"],
+input.me-auto {
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 8px;
+  text-decoration: underline;
+  border-radius: 4px;
+}
+input[type="reset"]:hover {
+  color: #374151;
+}
+
+body[style] {
+  background: #f3f6f9 !important;
+}
+
+#age {
+  margin-left: 18px;
+  border-radius: 4px;
+  border-color: black;
+}
+
+#height {
+  margin-left: 1px;
+  border-radius: 4px;
+  border-color: black;
+}
+
+#weight {
+  border-radius: 4px;
+  border-color: black;
+}
+
+#reset-btn {
+  border: none;
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+.middle.box,
+.box.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.box {
+  width: 360px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px 22px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(2, 6, 23, 0.04);
+  margin: 160px auto;
+}
+
+.box h1 {
+  font-size: 18px;
+  margin: 0 0 14px 0;
+  font-weight: 700;
+  color: #111827;
+}
+
+.box > div {
+  margin-bottom: 12px;
+}
+.box > div label {
+  display: inline-block;
+  width: 72px;
+  font-weight: 600;
+  color: #111827;
+}
+.box > div input[type="text"] {
+  display: inline-block;
+  width: 220px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #e6e9ef;
+}
+.box > div small {
+  display: block;
+  height: 16px;
+  color: #ef4444;
+  margin-top: 6px;
+}
+
+.box > div input[type="radio"] {
+  margin-left: 10px;
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  accent-color: #2196f3;
+}
+
+#btn {
+  display: block;
+  margin: 10px 0;
+  width: 260px;
+  max-width: 100%;
+  background: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(33, 150, 243, 0.16);
+}
+#btn:hover {
+  filter: brightness(0.96);
+}
+
+#result-bmi,
+#result {
+  margin-top: 12px;
+  font-weight: 540;
+  color: #111827;
+}
+
+@media (max-width: 420px) {
+  .box {
+    width: 100%;
+    padding: 16px;
+  }
+  .box > div label {
+    width: 100%;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .box > div input[type="text"] {
+    width: 100%;
+  }
+  #btn {
+    width: 100%;
+  }
+}
