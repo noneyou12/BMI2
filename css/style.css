@@ -149,6 +149,9 @@ body[style] {
   font-weight: 540;
   color: #111827;
 }
+.bg-pink {
+  background-color: pink !important;
+}
 
 @media (max-width: 420px) {
   .box {

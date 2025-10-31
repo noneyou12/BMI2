@@ -4,48 +4,133 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BMI Phase II</title>
-    <link rel="stylesheet" href="./css/style.css" />
+    <!-- <link rel="stylesheet" href="./css/style.css" /> -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
   </head>
-  <body style="background-color: #efcfd4">
-    <div class="middle box container">
-      <form action="">
-        <div class="d-flex">
-          <div class="col">
-            <h1>BMI Calculator</h1>
+  <body class="bg-light">
+    <div class="container vh-100">
+      <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+        <div class="d-grid gap-3 rounded-3 bg-white w-50 py-4 shadow">
+          <div class="d-flex flex-column gap-4 align-items-center">
+            <div class="w-75 d-flex justify-content-between align-items-center">
+              <h1 class="fw-bold m-0">BMI Calculator</h1>
+              <button
+                id="reset-btn"
+                type="reset"
+                class="btn btn-light border-0"
+                style="background-color: white"
+              >
+                Reset
+              </button>
+            </div>
+            <div class="row justify-content-center w-100 align-items-center">
+              <label class="col-1" for="Age">Age</label>
+              <div class="col-6">
+                <input
+                  id="age"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter ur Age"
+                />
+              </div>
+            </div>
+            <div
+              class="row justify-content-center w-100 align-items-center gap-1"
+            >
+              <label class="col-1" for="Height">Height </label>
+              <div class="col-6">
+                <input
+                  id="height"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter ur Height(Cm)"
+                />
+              </div>
+            </div>
+            <div
+              class="row justify-content-center w-100 align-items-center gap-1"
+            >
+              <label class="col-1" for="Weight">Weight</label>
+              <div class="col-6">
+                <input
+                  class="form-control"
+                  id="weight"
+                  type="text"
+                  placeholder="Enter ur Weight(Kg)"
+                />
+              </div>
+            </div>
+            <div class="d-flex gap-5">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  checked
+                />
+                <label class="form-check-label" for="gender"> Male </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  value="female"
+                />
+                <label class="form-check-label" for="gender"> Female </label>
+              </div>
+              <!-- <label for="Gender"></label>
+            <input
+              class="form-control"
+              type="radio"
+              name="gender"
+              value="male"
+              checked
+            />Male <input type="radio" name="gender" value="female" />Female -->
+            </div>
+            <div class="d-flex justify-content-center">
+              <button
+                id="btn"
+                type="button"
+                class="btn btn-primary text-white px-5 py-2 btn-lg"
+                style="border-radius: 12px"
+              >
+                Calculate BMI
+              </button>
+            </div>
+            <div class="row justify-content-center w-100">
+              <label class="col-3 text-end">BMI :</label>
+              <div class="col-7">
+                <p id="result-bmi"></p>
+              </div>
+            </div>
+            <div class="row justify-content-center w-100">
+              <label class="col-3 text-end">Result :</label>
+              <div class="col-7">
+                <p id="result"></p>
+              </div>
+            </div>
+            <div class="text-center text-secondary small w-75">
+              <p id="last-calculate" class="m-0 fw-bold"></p>
+            </div>
+            <a href="history.html" style="text-decoration: none">
+              <button
+                class="btn btn-primary text-white w-100"
+                type="button"
+                style="border-radius: 12px"
+              >
+                View Calculation History
+              </button>
+            </a>
           </div>
-          <div class="col">
-            <input id="reset-btn" type="reset" value="Reset" />
-          </div>
         </div>
-        <div>
-          <label for="Age">Age :</label>
-          <input id="age" type="text" placeholder="Enter ur Age" />
-          <small></small>
-          <br /><br />
-        </div>
-        <div>
-          <label for="Height" class="form-label">Height :</label>
-          <input id="height" type="text" placeholder="Enter ur Height(Cm)" />
-          <small></small>
-          <br /><br />
-        </div>
-        <div>
-          <label for="Weight">Weight :</label>
-          <input id="weight" type="text" placeholder="Enter ur Weight(Kg)" />
-          <small></small>
-          <br /><br />
-        </div>
-        <div style="margin-left: 60px">
-          <label for="Gender"></label>
-          <input type="radio" name="gender" value="male" checked />Male
-          <input type="radio" name="gender" value="female" />Female <br /><br />
-        </div>
-        <div>
-          <button id="btn">Calculate BMI</button>
-          <p id="result-bmi">BMI :</p>
-          <p id="result">result :</p>
-        </div>
-      </form>
+      </div>
     </div>
   </body>
   <script src="./JS/script.js"></script>

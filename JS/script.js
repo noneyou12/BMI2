@@ -1,34 +1,70 @@
-const mybutton = document.getElementById('btn')
-const formEl = document.querySelector('form');
-if (formEl) {
-    formEl.addEventListener('reset', function() {
+const mybutton = document.getElementById('btn');
+const resetBtn = document.getElementById('reset-btn');
+const lastCalculateDisplay = document.getElementById('last-calculate');
+
+function updateLastCalculate(timestamp) {
+    if (timestamp) {
+        // แปลง string กลับเป็น number/Date
+        const date = new Date(parseInt(timestamp)); 
+        
+        // ฟอร์แมตเวลา: YYYY-MM-DD HH:MM
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+
+        const formattedTime = `${year}-${month}-${day} ${hours}:${minutes}`;
+        
+        lastCalculateDisplay.textContent = `Last Calculate : ${formattedTime}`;
+    } else {
+        lastCalculateDisplay.textContent = ''; // แสดงเป็นค่าว่างถ้าไม่มีข้อมูล
+    }
+}
+
+// โหลดค่า Last Calculate เมื่อเริ่มต้นหน้าเว็บ
+const storedLastCalculate = localStorage.getItem('lastCalculateTime');
+updateLastCalculate(storedLastCalculate);
+
+// Handle reset button click
+if (resetBtn) {
+    resetBtn.addEventListener('click', function() {
+        // Clear inputs
+        document.getElementById('age').value = '';
+        document.getElementById('height').value = '';
+        document.getElementById('weight').value = '';
+        
+        // Reset radio to male
+        document.querySelector('input[name="gender"][value="male"]').checked = true;
+        
+        // Clear results
         const resultbmi = document.getElementById('result-bmi');
         const result = document.getElementById('result');
-        if (resultbmi) resultbmi.textContent = 'BMI :';
-        if (result) result.textContent = 'result :';
+        if (resultbmi) resultbmi.textContent = '';
+        if (result) result.textContent = '';
     });
 }
 
 mybutton.addEventListener('click', function(event) {
-    if (event && typeof event.preventDefault === 'function') event.preventDefault();
+    event.preventDefault();
 
-    const age = document.getElementById('age');
-    const height = document.getElementById('height');
-    const weight = document.getElementById('weight');
-    const resultbmi = document.getElementById('result-bmi');
-    const SelectgenderEL = document.querySelector('input[name="gender"]:checked')
+    const ageEl = document.getElementById('age');
+    const heightEl = document.getElementById('height');
+    const weightEl = document.getElementById('weight');
+    const resultbmiEl = document.getElementById('result-bmi');
+    const SelectgenderEl = document.querySelector('input[name="gender"]:checked')
     const result = document.getElementById('result')
 
-    const Age = parseFloat(age.value)
-    const Weight = parseFloat(weight.value)
-    const Height = parseFloat(height.value)
-    const selectedgender = SelectgenderEL.value;
+    const age = parseFloat(ageEl.value)
+    const weight = parseFloat(weightEl.value)
+    const height = parseFloat(heightEl.value)
+    const gender = SelectgenderEl.value;
 
-    const Height_m = Height/100
-    const BMI = Weight / (Height_m**2)
+    const Height_m = height/100
+    const BMI = weight / (Height_m**2)
     const roundedbmi = BMI.toFixed(2)
 
-    if (isNaN(Age) || isNaN(Weight) || isNaN(Height)) {
+    if (isNaN(age) || isNaN(weight) || isNaN(height)) {
         alert('กรุณากรอกข้อมูลให้ครบถ้วน');
         return;
     }
@@ -36,8 +72,8 @@ mybutton.addEventListener('click', function(event) {
     let catelogy = ''
     let recommendation = ''
 
- if (selectedgender === 'male') {
-    if (Age >= 5 && Age <= 9) {
+ if (gender === 'male') {
+    if (age >= 5 && age <= 9) {
         if (BMI <= 16 && BMI >= 14) {
             catelogy = 'BMI ปกติ'
         } else if (BMI <= 18 && BMI >= 17) {
@@ -45,7 +81,7 @@ mybutton.addEventListener('click', function(event) {
         } else {
             catelogy = 'อ้วน'
         }
-    } else if (Age >= 10 && Age <= 14) { 
+    } else if (age >= 10 && age <= 14) { 
         if (BMI <= 20 && BMI >= 15){
             catelogy = 'BMI ปกติ'
         } else if (BMI <= 23 && BMI >= 21) {
@@ -53,7 +89,7 @@ mybutton.addEventListener('click', function(event) {
         } else {
             catelogy = 'อ้วน'
         }
-    } else if (Age >= 15 && Age <= 17) { 
+    } else if (age >= 15 && age <= 17) { 
         if (BMI <= 23 && BMI >= 17){
             catelogy = 'BMI ปกติ'
         } else if (BMI <= 27 && BMI >= 24) {
@@ -61,7 +97,7 @@ mybutton.addEventListener('click', function(event) {
         } else {
             catelogy = 'อ้วน'
         }
-    } else if (Age >= 18 && Age <= 65) { 
+    } else if (age >= 18 && age <= 65) { 
         if (BMI < 18.5) {
             catelogy = 'ผอมเกินไป'
             recommendation = 'เพิ่มน้ำหนัก'
@@ -78,7 +114,7 @@ mybutton.addEventListener('click', function(event) {
             catelogy = 'อ้วนระดับที่ 2-3'
             recommendation = 'ลดน้ำหนักด่วน'
         }
-    } else if ( Age >65 ) { 
+    } else if ( age >65 ) { 
         if (BMI < 23) {
             catelogy = 'ผอมเกินไป'
             recommendation = 'เสี่ยงกระดูกบาง'
@@ -94,7 +130,7 @@ mybutton.addEventListener('click', function(event) {
         }
     } 
 } else {
-    if (Age >= 5 && Age <= 9) {
+    if (age >= 5 && age <= 9) {
         if (BMI <= 16 && BMI >= 14) {
             catelogy = 'BMI ปกติ'
         } else if (BMI <= 18 && BMI >= 17) {
@@ -102,7 +138,7 @@ mybutton.addEventListener('click', function(event) {
         } else {
             catelogy = 'อ้วน'
         }
-    } else if (Age >= 10 && Age <= 14) { 
+    } else if (age >= 10 && age <= 14) { 
         if (BMI <= 20 && BMI >= 14){
             catelogy = 'BMI ปกติ'
         } else if (BMI <= 23 && BMI >= 21) {
@@ -110,7 +146,7 @@ mybutton.addEventListener('click', function(event) {
         } else {
             catelogy = 'อ้วน'
         }
-    } else if (Age >= 15 && Age <= 17) { 
+    } else if (age >= 15 && age <= 17) { 
         if (BMI <= 23 && BMI >= 17){
             catelogy = 'BMI ปกติ'
         } else if (BMI <= 27 && BMI >= 24) {
@@ -118,7 +154,7 @@ mybutton.addEventListener('click', function(event) {
         } else {
             catelogy = 'อ้วน'
         }
-    } else if (Age >= 18 && Age <= 65) { 
+    } else if (age >= 18 && age <= 65) { 
         if (BMI < 18.5) {
             catelogy = 'ผอมเกินไป'
             recommendation = 'เพิ่มน้ำหนัก'
@@ -135,7 +171,7 @@ mybutton.addEventListener('click', function(event) {
             catelogy = 'อ้วนระดับที่ 2-3'
             recommendation = 'ลดน้ำหนักด่วน'
         }
-    } else if ( Age >65 ) { 
+    } else if ( age >65 ) { 
         if (BMI < 23) {
             catelogy = 'ผอมเกินไป'
             recommendation = 'เสี่ยงกระดูกบาง'
@@ -152,9 +188,24 @@ mybutton.addEventListener('click', function(event) {
     } 
 }
 
-    resultbmi.textContent = `BMI : ${roundedbmi}`
-    result.innerHTML = `result : ${Age}Y ${selectedgender} BMI =${roundedbmi} ${catelogy} ${recommendation}`;
+    resultbmiEl.textContent = ` ${roundedbmi}`
+    result.innerHTML = ` ${age}Y ${gender} BMI =${roundedbmi} ${catelogy} ${recommendation}`;
 
+    const newBMIData = {
+    age,
+    BMI : roundedbmi,
+    height,
+    weight,
+    gender,
+    result: catelogy,
+    }
+fetch('http://localhost:5000/api/insertedhistory', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+      body: JSON.stringify(newBMIData)
+    })
     
 
 })

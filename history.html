@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="d-flex align-items-baseline">
+        <button class="back-arrow btn fs-1" onclick="window.history.back();">
+          &#8592;
+        </button>
+        <h2>Calculation History</h2>
+      </div>
+
+      <table
+        id="history-table"
+        class="table table-bordered border-success border border-3"
+      >
+        <thead>
+          <tr>
+            <th>Date Time</th>
+            <th>Age</th>
+            <th>BMI</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Gender</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="history-table-body"></tbody>
+      </table>
+    </div>
+  </body>
+  <script>
+    // ฟังก์ชันสำหรับดึงข้อมูลและ Render ตาราง
+    loadHistory();
+    async function loadHistory() {
+      const tableBody = document.getElementById("history-table-body");
+      if (!tableBody) return; // ออกจากฟังก์ชันถ้าไม่พบ Body ของตาราง
+
+      // ล้างข้อมูลเก่า
+      tableBody.innerHTML = '<tr><td colspan="7">Loading...</td></tr>';
+
+      try {
+        const response = await fetch("http://localhost:5000/api/history");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const historyData = await response.json();
+
+        // ล้างสถานะ Loading
+        tableBody.innerHTML = "";
+
+        // ตรวจสอบว่ามีข้อมูลหรือไม่
+        if (historyData.length === 0) {
+          tableBody.innerHTML =
+            '<tr><td colspan="7">No calculation history found.</td></tr>';
+          return;
+        }
+
+        // Render ข้อมูล
+        historyData.forEach((entry) => {
+          const row = tableBody.insertRow();
+
+          // จัดรูปแบบวันที่และเวลา (ถ้า date เป็น ISO string)
+          const dateObj = new Date(entry.date);
+          const dateStr = dateObj
+            .toLocaleDateString("th-TH", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })
+            .replace(/\//g, "-");
+          const timeStr = dateObj.toLocaleTimeString("th-TH", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          });
+          const dateTime = `${dateStr} ${timeStr}`;
+
+          // เพิ่ม Cell ในแต่ละ Column ตามลำดับ
+          row.insertCell().textContent = dateTime;
+          row.insertCell().textContent = entry.age;
+          row.insertCell().textContent = entry.BMI; // ควรเป็นค่า BMI ที่คำนวณแล้ว
+          row.insertCell().textContent = entry.height;
+          row.insertCell().textContent = entry.weight;
+          row.insertCell().textContent =
+            entry.gender.charAt(0).toUpperCase() + entry.gender.slice(1); // Male/Female
+          row.insertCell().textContent = entry.result; // Catelogy เช่น 'Average'
+        });
+      } catch (error) {
+        console.error("Error loading BMI history:", error);
+        tableBody.innerHTML =
+          '<tr><td colspan="7">Error loading data. Check server connection.</td></tr>';
+      }
+    }
+
+    // 💡 เรียกฟังก์ชันเมื่อหน้าโหลดเสร็จ หรือเมื่อผู้ใช้เปิดหน้า History
+    // window.addEventListener('load', loadHistory); // เรียกเมื่อโหลดหน้า
+    // หรือเรียกฟังก์ชันนี้ เมื่อผู้ใช้กดปุ่ม 'View History'
+  </script>
+</html>
