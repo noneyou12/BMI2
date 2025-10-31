@@ -35,8 +35,6 @@ function writeHistory(historyArray) {
     }
 }
 
-// ต้องแน่ใจว่าไฟล์หลัก (server.js) มี app.use(express.json()) แล้ว
-
 // สมมติว่าไฟล์นี้คือส่วนหนึ่งของ router หรือในไฟล์ server.js โดยตรง
 app.post('/api/insertedhistory', (req, res) => {
     const newEntry = req.body;
